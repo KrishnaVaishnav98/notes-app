@@ -33,23 +33,27 @@ const userRoutes = express.Router();
  */
 
 /**
- * @swagger
- * /users:
- *  get:
- *      summary: This will get all user data from database.
- *      tags: [Users]
- *      responses:
- *          200:
- *              description: The list of all users
- *              content: 
- *                  application/json:
- *                      schema:
- *                          type: array
- *                          item: 
- *                              $ref: "#components/schemas/user"
- *          500:
- *              description: Some Server Error                      
- */
+* @swagger
+* /users/register :
+*  post :
+*       summary: To post the details of a new user
+*       tags: [Users]
+*       requestBody:
+*           required: true
+*           content:
+*              application/json:
+*                  schema:
+*                      $ref: '#/components/schemas/User'
+*       responses:
+*           200:
+*               description: The user was successfully registered
+*               content:
+*                   application/json:
+*                       schema:
+*                           $ref: '#/components/schemas/User'
+*           500:
+*               description: Some server error
+*/
 
 
 userRoutes.post("/register", async (req, res) => {
@@ -68,6 +72,29 @@ userRoutes.post("/register", async (req, res) => {
         res.send({ "error": err })
     }
 })
+
+/**
+* @swagger
+* /users/login :
+*  post :
+*       summary: To login with the details of an existing user
+*       tags: [Users]
+*       requestBody:
+*           required: true
+*           content:
+*              application/json:
+*                  schema:
+*                      $ref: '#/components/schemas/User'
+*       responses:
+*           200:
+*               description: The user was successfully logged in
+*               content:
+*                   application/json:
+*                       schema:
+*                           $ref: '#/components/schemas/User'
+*           500:
+*               description: Some server error
+*/
 
 userRoutes.post("/login", async (req, res) => {
     const { email, pass } = req.body;
